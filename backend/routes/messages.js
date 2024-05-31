@@ -1,21 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../middleware/auth');
-const Message = require('../models/Message');
+const auth = require("../middleware/auth");
+const Message = require("../models/message");
 
 // Get messages
-router.get('/', auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const messages = await Message.find().sort({ createdAt: -1 });
     res.json(messages);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 });
 
 // Add message
-router.post('/', auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { text } = req.body;
   try {
     const newMessage = new Message({
@@ -26,7 +26,7 @@ router.post('/', auth, async (req, res) => {
     res.json(message);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 });
 
